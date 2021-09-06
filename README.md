@@ -16,7 +16,7 @@
 
 #### login
 
-POST http://localhost:9000/api/login
+`POST` http://localhost:9000/api/login
 
 `Required fields`: email, password
 
