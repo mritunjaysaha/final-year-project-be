@@ -6,15 +6,19 @@ const { Schema } = mongoose;
 
 const UserSchema = new Schema(
     {
-        username: {
+        firstName: {
             type: String,
             required: true,
             maxlength: 32,
             trim: true,
             unique: true,
         },
-        name: {
+        lastName: {
             type: String,
+            required: true,
+            maxlength: 32,
+            trim: true,
+            unique: true,
         },
         email: {
             type: String,
@@ -28,7 +32,7 @@ const UserSchema = new Schema(
         },
         role: {
             type: Number,
-            required: true,
+            default: 0,
         },
         encrypted_password: {
             type: String,
@@ -53,12 +57,8 @@ UserSchema.methods = {
     authenticate: function (plainPassword) {
         return this.securePassword(plainPassword) === this.encrypted_password;
     },
-
     securePassword: function (plainPassword) {
-        if (!plainPassword) {
-            return "";
-        }
-
+        if (!plainPassword) return "";
         try {
             return crypto
                 .createHmac("sha256", this.salt)
