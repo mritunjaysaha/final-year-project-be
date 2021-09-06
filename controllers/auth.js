@@ -1,4 +1,4 @@
-const User = require("../models/user");
+const { User } = require("../models/user");
 const { validationResult } = require("express-validator");
 const jwt = require("jsonwebtoken");
 const expressJwt = require("express-jwt");
@@ -84,6 +84,16 @@ exports.isAuthenticated = (req, res, next) => {
         req.profile && req.auth && req.profile._id.toString() === req.auth._id;
     if (!checker) {
         return res.status(403).json({ error: "ACCESS DENIED" });
+    }
+
+    next();
+};
+
+exports.isAdmin = (req, res, next) => {
+    if (req.profile.role) {
+        res.status(403).json({
+            error: "[ACCESS DENIED] You're not an ADMIN",
+        });
     }
 
     next();
