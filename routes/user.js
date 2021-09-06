@@ -25,13 +25,6 @@ router.param("userId", getUserById);
  */
 router.get("/", getAllUsers);
 
-/**
- * @route GET /api/user/userview/:username
- * @description get the user details
- * @access public
- */
-router.get("/userview/:username", getUserByUsername);
-
 // !PRIVATE ROUTES
 /**
  * @route GET /api/user/:userId

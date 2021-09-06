@@ -1,7 +1,5 @@
 const User = require("../models/user");
 const formidable = require("formidable");
-const fs = require("fs");
-const _ = require("lodash");
 
 exports.getUserById = (req, res, next, id) => {
     User.findById(id).exec((err, user) => {
@@ -24,24 +22,6 @@ exports.getUser = (req, res) => {
     req.profile.photo = "";
 
     return res.json(req.profile);
-};
-
-exports.getUserByUsername = (req, res) => {
-    const { username } = req.params;
-
-    User.findOne({ username })
-        .populate("links")
-        .exec((err, user) => {
-            if (err) {
-                res.json({ error: "user not found", message: err.message });
-            }
-
-            user.salt = undefined;
-            user.encrypted_password = undefined;
-            user.createdAt = undefined;
-            user.updatedAt = undefined;
-            res.json(user);
-        });
 };
 
 exports.getAllUsers = (req, res) => {

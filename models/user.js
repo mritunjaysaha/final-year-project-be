@@ -26,23 +26,14 @@ const UserSchema = new Schema(
             data: Buffer,
             contentType: String,
         },
-        links: [
-            {
-                type: Schema.Types.ObjectId,
-                ref: "Link",
-            },
-        ],
-        profileTitle: {
-            type: String,
-        },
-        bio: {
-            type: String,
+        role: {
+            type: Number,
+            required: true,
         },
         encrypted_password: {
             type: String,
             required: true,
         },
-
         salt: String,
     },
     { timestamps: true }
