@@ -2,9 +2,9 @@
 
 ### Table of Contents
 
-[End points](#Endpoints)
+- [End points](#Endpoints)
 
-###  1 <a name='Endpoints'></a>End points
+### <a name='Endpoints'></a>End points
 
 #### <a name='signin'></a>signin
 
