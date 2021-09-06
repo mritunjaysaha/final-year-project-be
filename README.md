@@ -1,8 +1,12 @@
 ## Delay - Tolerant Online Examination System
 
-### End points
+### Table of Contents
 
-#### signin
+[End points](#Endpoints)
+
+###  1 <a name='Endpoints'></a>End points
+
+#### <a name='signin'></a>signin
 
 `POST` http://localhost:9000/api/signin
 
@@ -14,16 +18,16 @@
 - 1: teachers
 - 10: administrator
 
-#### login
+#### <a name='login'></a>login
 
 `POST` http://localhost:9000/api/login
 
 `Required fields`: email, password
 
-#### logout
+#### <a name='logout'></a>logout
 
 `GET` http://localhost:9000/api/logout
 
-#### isSignedIn
+#### <a name='isSignedIn'></a>isSignedIn
 
 `GET` http://localhost:9000/api/isSignedIn
