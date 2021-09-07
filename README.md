@@ -33,7 +33,7 @@ The server will be running of `http://localhost:9000`
 
 ### Table of Contents
 
-- [End points]
+- End points
   - [Auth](./readme/auth.md)
   - [User](./readme/user.md)
   - [Course](./readme/course.md)
