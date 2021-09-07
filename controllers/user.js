@@ -1,4 +1,4 @@
-const User = require("../models/user");
+const { User } = require("../models/user");
 const formidable = require("formidable");
 
 exports.getUserById = (req, res, next, id) => {

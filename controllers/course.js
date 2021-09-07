@@ -17,10 +17,10 @@ exports.createCourse = (req, res) => {
 
     course.save((err, course) => {
         if (err) {
-            res.status(400).json({ error: "Could not create course" });
+            return res.status(400).json({ error: "failed to create course" });
+        } else {
+            return res.json(course);
         }
-
-        res.json(course);
     });
 };
 

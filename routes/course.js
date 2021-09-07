@@ -42,3 +42,5 @@ router.post("/:userId", isSignedIn, isAuthenticated, isAdmin, createCourse);
  * @access private
  */
 router.get("/:courseId/:userId", isSignedIn, isAuthenticated, getCourse);
+
+module.exports = router;
