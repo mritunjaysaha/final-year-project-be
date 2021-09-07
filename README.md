@@ -1,37 +1,39 @@
+
 ## Delay - Tolerant Online Examination System
+
+### Install
+
+1. Install dependencies
+``` bash
+npm install
+```
+2. Install `nodemon`
+
+``` bash
+npm i nodemon
+```
+
+### Set environment variables
+
+``` env
+MONGO_URI=
+SECRET=
+```
+### Run 
+
+``` bash
+npm start
+```
+or
+``` bash
+npm run dev
+```
+
+The server will be running of `http://localhost:9000`
 
 ### Table of Contents
 
-- [End points](#Endpoints)
-  - [Auth](#Auth)
-
-## <a name='Endpoints'></a>End points
-
-### <a name="Auth"></a>Auth
-#### signin
-
-`POST` http://localhost:9000/api/signin
-
-`Required fields`: firstName, lastNama, email, password
-`Optional field`: role
-
-<strong>role</strong>
-- 0: students `[default value]`
-- 1: teachers
-- 10: administrator
-
-#### login
-
-`POST` http://localhost:9000/api/login
-
-`Required fields`: email, password
-
-#### logout
-
-`GET` http://localhost:9000/api/logout
-
-#### isSignedIn
-
-`GET` http://localhost:9000/api/isSignedIn
-
-
+- [End points]
+  - [Auth](./readme/auth.md)
+  - [User](./readme/user.md)
+  - [Course](./readme/course.md)
