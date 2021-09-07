@@ -6,6 +6,7 @@ const {
     createCourse,
     getCourse,
     getAllCourses,
+    updateCourse,
 } = require("../controllers/course");
 const { isSignedIn, isAuthenticated, isAdmin } = require("../controllers/auth");
 const { getUserById } = require("../controllers/user");
@@ -41,6 +42,28 @@ router.post("/:userId", isSignedIn, isAuthenticated, isAdmin, createCourse);
  * @description get a course by Id
  * @access private
  */
-router.get("/:courseId/:userId", isSignedIn, isAuthenticated, getCourse);
+router.get(
+    "/:courseId/:userId",
+    isSignedIn,
+    isAuthenticated,
+    isAdmin,
+    getCourse
+);
+
+/**
+ * @method PUT
+ * @param courseId
+ * @param userId
+ * @route /api/course/:courseId/:userId
+ * @description update a course
+ * @access private
+ */
+router.put(
+    "/:courseId/:userId",
+    isSignedIn,
+    isAuthenticated,
+    isAdmin,
+    updateCourse
+);
 
 module.exports = router;

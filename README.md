@@ -3,10 +3,12 @@
 ### Table of Contents
 
 - [End points](#Endpoints)
+  - [Auth](#Auth)
 
-### <a name='Endpoints'></a>End points
+## <a name='Endpoints'></a>End points
 
-#### <a name='signin'></a>signin
+### <a name="Auth"></a>Auth
+#### signin
 
 `POST` http://localhost:9000/api/signin
 
@@ -18,16 +20,18 @@
 - 1: teachers
 - 10: administrator
 
-#### <a name='login'></a>login
+#### login
 
 `POST` http://localhost:9000/api/login
 
 `Required fields`: email, password
 
-#### <a name='logout'></a>logout
+#### logout
 
 `GET` http://localhost:9000/api/logout
 
-#### <a name='isSignedIn'></a>isSignedIn
+#### isSignedIn
 
 `GET` http://localhost:9000/api/isSignedIn
+
+
