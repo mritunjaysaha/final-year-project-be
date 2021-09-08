@@ -7,6 +7,7 @@ const {
     getCourse,
     getAllCourses,
     updateCourse,
+    removeCourse,
 } = require("../controllers/course");
 const { isSignedIn, isAuthenticated, isAdmin } = require("../controllers/auth");
 const { getUserById } = require("../controllers/user");
@@ -64,6 +65,22 @@ router.put(
     isAuthenticated,
     isAdmin,
     updateCourse
+);
+
+/**
+ * @method DELETE
+ * @param courseId
+ * @param userId
+ * @route /api/course/:courseId/:userId
+ * @description remove a course
+ * @access private
+ */
+router.delete(
+    "/:courseId/:userId",
+    isSignedIn,
+    isAuthenticated,
+    isAdmin,
+    removeCourse
 );
 
 module.exports = router;
