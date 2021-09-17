@@ -4,11 +4,11 @@ const { Schema } = mongoose;
 
 const CourseSchema = new Schema(
     {
-        courseName: {
+        course_name: {
             type: String,
             required: true,
         },
-        courseCoordinator: {
+        course_coordinator: {
             type: String,
             required: true,
         },
