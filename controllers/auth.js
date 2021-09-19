@@ -10,6 +10,7 @@ exports.signUp = (req, res) => {
         return res.status(422).json({ error: errors.errors[0].msg });
     }
 
+    console.log(req.body);
     const user = new User(req.body);
 
     user.save((err, user) => {
@@ -89,9 +90,22 @@ exports.isAuthenticated = (req, res, next) => {
     next();
 };
 
+exports.isInstructor = (req, res, next) => {
+    console.log("isInstructor", req.profile.role);
+    if (req.profile.role === 0) {
+        return res.status(403).json({
+            error: `[ACCESS DENIED] You're not an INSTRUCTOR`,
+        });
+    }
+
+    next();
+};
+
 exports.isAdmin = (req, res, next) => {
-    if (req.profile.role !== 10) {
-        res.status(403).json({
+    console.log("isAdmin", req.profile.role);
+
+    if (req.profile.role !== 0 || req.profile.role !== 1) {
+        return res.status(403).json({
             error: "[ACCESS DENIED] You're not an ADMIN",
         });
     }

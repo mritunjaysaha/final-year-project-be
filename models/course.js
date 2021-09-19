@@ -9,7 +9,8 @@ const CourseSchema = new Schema(
             required: true,
         },
         course_coordinator: {
-            type: String,
+            type: Schema.Types.ObjectId,
+            ref: "User",
             required: true,
         },
         students: [
