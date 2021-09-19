@@ -12,6 +12,11 @@ const questionSchema = new Schema(
             ref: "Exam",
             required: true,
         },
+        course_coordinator: {
+            type: Schema.Types.ObjectId,
+            ref: "User",
+            required: true,
+        },
         images: [
             {
                 type: Buffer,

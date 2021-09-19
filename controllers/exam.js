@@ -69,6 +69,6 @@ exports.deleteExam = (req, res) => {
             return res.status(400).json({ error: "Failed to find exam" });
         }
 
-        return res.json({ msg: "Exam successfully updated" });
+        return res.json({ msg: "Exam successfully deleted" });
     });
 };
