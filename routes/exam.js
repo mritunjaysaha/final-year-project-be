@@ -24,10 +24,19 @@ router.param("examId", getExamById);
 /**
  * @method GET
  * @param userId
+ * @param examId
+ * @route /api/exam/:examId/:userId
+ * @description get all questions of a exam
+ * @access private
+ */
+
+/**
+ * @method GET
+ * @param userId
  * @route /api/exam/:userId
  * @description get all exams for instructor or admin
  * @access private
- * !! change isInstructor to isAdmin
+ * !! TODO: change isInstructor to isAdmin
  */
 router.get("/:userId", isSignedIn, isAuthenticated, isInstructor, getAllExams);
 

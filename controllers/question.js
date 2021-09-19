@@ -1,4 +1,5 @@
 const { Question } = require("../models/question");
+const { Exam } = require("../models/exam");
 
 exports.getQuestionById = (req, res, next, id) => {
     Question.findById(id).exec((err, question) => {
@@ -29,16 +30,7 @@ exports.getAllQuestions = (req, res) => {
 };
 
 exports.getQuestion = (req, res) => {
-    Question.findById(id).exec((err, question) => {
-        if (err || !question) {
-            return res.status(400).json({
-                error: "Question not found in DB",
-                msg: err,
-            });
-        }
-
-        return res.json(question);
-    });
+    return res.json(req.question);
 };
 
 exports.createQuestion = (req, res) => {
@@ -51,7 +43,24 @@ exports.createQuestion = (req, res) => {
                 .json({ error: "Failed to create question", msg: error });
         }
 
-        return res.json(question);
+        const { _id: examId } = req.exam;
+        const { _id: newQuesId } = newQuestion;
+
+        Exam.findByIdAndUpdate(
+            examId,
+            { $push: { questions: newQuesId } },
+            { new: true, upsert: true },
+            (err, exam) => {
+                if (err || !exam) {
+                    return res.status(400).json({
+                        error: "Failed to update exam questions",
+                        msg: err.message,
+                    });
+                }
+
+                return res.json({ exam, question });
+            }
+        );
     });
 };
 
