@@ -72,3 +72,17 @@ exports.deleteExam = (req, res) => {
         return res.json({ msg: "Exam successfully deleted" });
     });
 };
+
+exports.getAllQuestionsOfExam = (req, res) => {
+    Exam.findById(req.exam._id)
+        .populate("questions")
+        .exec((err, exam) => {
+            if (err) {
+                return res
+                    .status(400)
+                    .json({ error: "Failed to find exam", msg: err.message });
+            }
+
+            return res.json(exam.questions);
+        });
+};

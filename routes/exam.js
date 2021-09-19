@@ -9,6 +9,7 @@ const {
     createExam,
     updateExam,
     deleteExam,
+    getAllQuestionsOfExam,
 } = require("../controllers/exam");
 const { getUserById } = require("../controllers/user");
 const {
@@ -95,6 +96,21 @@ router.delete(
     isAuthenticated,
     isInstructor,
     deleteExam
+);
+
+/**
+ * @method GET
+ * @param examId
+ * @param userId
+ * @route /api/exam/all-question/:examId/:userId
+ * @description get all questions of a exam
+ * @access public
+ */
+router.get(
+    "/all-questions/:examId/:userId",
+    isSignedIn,
+    isAuthenticated,
+    getAllQuestionsOfExam
 );
 
 module.exports = router;
