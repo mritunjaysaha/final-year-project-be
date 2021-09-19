@@ -13,14 +13,17 @@ exports.getCourseById = (req, res, next, id) => {
 };
 
 exports.createCourse = (req, res) => {
+    console.log("create course", req.body);
+
     const course = new Course(req.body);
 
     course.save((err, course) => {
         if (err) {
-            return res.status(400).json({ error: "failed to create course" });
-        } else {
-            return res.json(course);
+            return res
+                .status(400)
+                .json({ error: "failed to create course", msg: err.message });
         }
+        return res.json(course);
     });
 };
 
