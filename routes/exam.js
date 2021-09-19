@@ -15,7 +15,6 @@ const {
     isSignedIn,
     isAuthenticated,
     isInstructor,
-    isAdmin,
 } = require("../controllers/auth");
 
 router.param("userId", getUserById);

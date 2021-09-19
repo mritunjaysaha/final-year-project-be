@@ -40,7 +40,7 @@ exports.createQuestion = (req, res) => {
         if (err) {
             return res
                 .status(400)
-                .json({ error: "Failed to create question", msg: error });
+                .json({ error: "Failed to create question", msg: err });
         }
 
         const { _id: examId } = req.exam;
@@ -58,7 +58,7 @@ exports.createQuestion = (req, res) => {
                     });
                 }
 
-                return res.json({ exam, question });
+                return res.json(question);
             }
         );
     });
