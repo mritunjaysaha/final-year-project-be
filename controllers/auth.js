@@ -91,7 +91,6 @@ exports.isAuthenticated = (req, res, next) => {
 };
 
 exports.isInstructor = (req, res, next) => {
-    console.log("isInstructor", req.profile.role);
     if (req.profile.role === 0) {
         return res.status(403).json({
             error: `[ACCESS DENIED] You're not an INSTRUCTOR`,
@@ -102,8 +101,6 @@ exports.isInstructor = (req, res, next) => {
 };
 
 exports.isAdmin = (req, res, next) => {
-    console.log("isAdmin", req.profile.role);
-
     if (req.profile.role !== 0 || req.profile.role !== 1) {
         return res.status(403).json({
             error: "[ACCESS DENIED] You're not an ADMIN",

@@ -24,7 +24,7 @@ const examSchema = new Schema(
             },
         ],
         time_limit: {
-            type: Date,
+            type: Number,
             required: true,
         },
         total_marks: {

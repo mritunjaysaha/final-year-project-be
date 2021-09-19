@@ -27,8 +27,9 @@ router.param("examId", getExamById);
  * @route /api/exam/:userId
  * @description get all exams for instructor or admin
  * @access private
+ * !! change isInstructor to isAdmin
  */
-router.get("/:userId", isSignedIn, isAuthenticated, isAdmin, getAllExams);
+router.get("/:userId", isSignedIn, isAuthenticated, isInstructor, getAllExams);
 
 /**
  * @method GET

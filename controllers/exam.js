@@ -3,7 +3,9 @@ const { Exam } = require("../models/exam");
 exports.getExamById = (req, res, next, id) => {
     Exam.findById(id).exec((err, exam) => {
         if (err || !exam) {
-            res.status(400).json({ error: "No exam found" });
+            return res.status(400).json({
+                error: "No exam found",
+            });
         }
 
         req.exam = exam;
@@ -19,13 +21,13 @@ exports.getExam = (req, res) => {
 exports.getAllExams = (req, res) => {
     Exam.find().exec((err, exam) => {
         if (err || !exam) {
-            res.status(400).json({
+            return res.status(400).json({
                 error: "No exams found in database",
                 msg: err.message,
             });
         }
 
-        res.json(exam);
+        return res.json(exam);
     });
 };
 
@@ -34,10 +36,13 @@ exports.createExam = (req, res) => {
 
     exam.save((err, exam) => {
         if (err || !exam) {
-            res.status(400).json({ error: "Failed to create exam" });
+            return res.status(400).json({
+                error: "Failed to create exam",
+                msg: err.message,
+            });
         }
 
-        res.json(exam);
+        return res.json(exam);
     });
 };
 
@@ -48,12 +53,12 @@ exports.updateExam = (req, res) => {
         { new: true },
         (err, exam) => {
             if (err || !exam) {
-                res.status(400).json({
+                return res.status(400).json({
                     error: "Not authorized to update information",
                 });
             }
 
-            res.json(exam);
+            return res.json(exam);
         }
     );
 };
@@ -61,9 +66,9 @@ exports.updateExam = (req, res) => {
 exports.deleteExam = (req, res) => {
     Exam.deleteOne({ _id: req.exam._id }, (err, exam) => {
         if (err || !exam) {
-            res.status(400).json({ error: "Failed to find exam" });
+            return res.status(400).json({ error: "Failed to find exam" });
         }
 
-        res.json({ msg: "Exam successfully updated" });
+        return res.json({ msg: "Exam successfully updated" });
     });
 };
