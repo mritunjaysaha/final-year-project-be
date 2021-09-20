@@ -24,8 +24,8 @@ router.param("userId", getUserById);
 
 /**
  * @method GET
- * @param userId
  * @param questionId
+ * @param userId
  * @route /api/question/:questionId/:userId
  * @description get question by id
  * @access private
@@ -40,8 +40,8 @@ router.get(
 
 /**
  * @method POST
- * @param userId
  * @param examId
+ * @param userId
  * @route /api/question/:examId/:userId
  * @description create question
  * @access private
@@ -56,15 +56,14 @@ router.post(
 
 /**
  * @method PUT
- * @param userId
  * @param questionId
- * @param examId
- * @route /api/question/:examId/:questionId/:userId
+ * @param userId
+ * @route /api/question/:questionId/:userId
  * @description update question
  * @access private
  */
 router.put(
-    "/:examId/:questionId/:userId",
+    "/:questionId/:userId",
     isSignedIn,
     isAuthenticated,
     isInstructor,
@@ -73,9 +72,9 @@ router.put(
 
 /**
  * @method DELETE
- * @param userId
- * @param questionId
  * @param examId
+ * @param questionId
+ * @param userId
  * @route /api/question/:examId/:questionId/:userId
  * @description delete question
  * @access private
