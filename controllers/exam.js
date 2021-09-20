@@ -1,4 +1,5 @@
 const { Exam } = require("../models/exam");
+const { Question } = require("../models/question");
 
 exports.getExamById = (req, res, next, id) => {
     Exam.findById(id).exec((err, exam) => {
@@ -64,10 +65,22 @@ exports.updateExam = (req, res) => {
 };
 
 exports.deleteExam = (req, res) => {
+    console.log("delete exam");
     Exam.deleteOne({ _id: req.exam._id }, (err, exam) => {
         if (err || !exam) {
             return res.status(400).json({ error: "Failed to find exam" });
         }
+        console.log("delete exam", { exam });
+
+        exam.questions.map((quesId) => {
+            Question.findByIdAndRemove(quesId).exec((err, question) => {
+                if (err) {
+                    return res
+                        .status(400)
+                        .json({ error: "Failed to delete questions" });
+                }
+            });
+        });
 
         return res.json({ msg: "Exam successfully deleted" });
     });

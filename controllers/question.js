@@ -6,7 +6,7 @@ exports.getQuestionById = (req, res, next, id) => {
         if (err || !question) {
             return res.status(400).json({
                 error: "No question found",
-                msg: err.message,
+                msg: err,
             });
         }
 
@@ -82,11 +82,30 @@ exports.updateQuestion = (req, res) => {
 };
 
 exports.deleteQuestion = (req, res) => {
-    Question.deleteOne({ _id: req.question._id }, (err, question) => {
-        if (err) {
-            return res.status(400).json({ error: "Failed to find questions" });
-        }
+    const { _id: quesId } = req.question;
+    const { _id: examId } = req.exam;
 
-        return res.json({ msg: "Question successfully deleted" });
-    });
+    Exam.findByIdAndUpdate(
+        { _id: examId },
+        { $pull: { questions: quesId } },
+        (err, exam) => {
+            if (err) {
+                return res.status(400).json({
+                    error: "failed to delete question's id from Exam",
+                    msg: err,
+                });
+            }
+
+            Question.deleteOne({ _id: quesId }).exec((err, question) => {
+                if (err || !question) {
+                    return res.status(400).json({
+                        error: "Failed to delete questions from Question",
+                        msg: err,
+                    });
+                }
+            });
+
+            return res.json({ msg: "successfully deleted", exam });
+        }
+    );
 };
