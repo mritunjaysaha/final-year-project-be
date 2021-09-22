@@ -31,6 +31,18 @@ const UserSchema = new Schema(
             type: Number,
             default: 0,
         },
+        course: [
+            {
+                type: Schema.Types.ObjectId,
+                ref: "Course",
+            },
+        ],
+        exam: [
+            {
+                type: Schema.Types.ObjectId,
+                ref: "Exam",
+            },
+        ],
         encrypted_password: {
             type: String,
             required: true,
