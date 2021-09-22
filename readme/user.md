@@ -1,4 +1,3 @@
-### <a name="User"></a> User
+### User
 
 #### Get User
-

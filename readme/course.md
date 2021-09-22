@@ -1,4 +1,4 @@
-### <a name="Course"></a> Course
+### Course
 
 #### Create Course
 
