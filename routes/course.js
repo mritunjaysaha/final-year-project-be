@@ -8,7 +8,7 @@ const {
     getAllCourses,
     updateCourse,
     removeCourse,
-    getEnrolledUsers,
+    getEnrolledUsersCourse,
 } = require("../controllers/course");
 const {
     isSignedIn,
@@ -61,7 +61,7 @@ router.get(
     isSignedIn,
     isAuthenticated,
     isInstructor,
-    getEnrolledUsers
+    getEnrolledUsersCourse
 );
 
 /**

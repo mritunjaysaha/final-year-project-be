@@ -23,6 +23,12 @@ const examSchema = new Schema(
                 ref: "Question",
             },
         ],
+        students: [
+            {
+                type: Schema.Types.ObjectId,
+                ref: "User",
+            },
+        ],
         time_limit: {
             type: Number,
             required: true,

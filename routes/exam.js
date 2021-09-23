@@ -10,6 +10,7 @@ const {
     updateExam,
     deleteExam,
     getAllQuestionsOfExam,
+    getEnrolledUsersExam,
 } = require("../controllers/exam");
 const { getUserById } = require("../controllers/user");
 const {
@@ -54,6 +55,22 @@ router.get(
     isAuthenticated,
     isInstructor,
     getExam
+);
+
+/**
+ * @method GET
+ * @param examId
+ * @param userId
+ * @route /api/exam/enrolled/:examId/:userId
+ * @description get list of enrolled students
+ * @access private
+ */
+router.get(
+    "/enrolled/:examId/:userId",
+    isSignedIn,
+    isAuthenticated,
+    isInstructor,
+    getEnrolledUsersExam
 );
 
 /**

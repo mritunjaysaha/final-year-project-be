@@ -14,8 +14,6 @@ exports.getCourseById = (req, res, next, id) => {
 };
 
 exports.createCourse = (req, res) => {
-    console.log("create course", req.body);
-
     const course = new Course(req.body);
 
     course.save((err, course) => {
@@ -97,7 +95,7 @@ exports.removeCourse = (req, res) => {
     });
 };
 
-exports.getEnrolledUsers = (req, res) => {
+exports.getEnrolledUsersCourse = (req, res) => {
     Course.findById(req.course._id)
         .populate("students")
         .exec((err, course) => {

@@ -37,7 +37,7 @@ const UserSchema = new Schema(
                 ref: "Course",
             },
         ],
-        exam: [
+        exams: [
             {
                 type: Schema.Types.ObjectId,
                 ref: "Exam",
