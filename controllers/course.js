@@ -1,4 +1,5 @@
 const { Course } = require("../models/course");
+const { User } = require("../models/user");
 
 exports.getCourseById = (req, res, next, id) => {
     Course.findById(id).exec((err, course) => {
@@ -47,19 +48,42 @@ exports.getAllCourses = (req, res) => {
  * update the students enrolled in the course
  */
 exports.updateCourse = (req, res) => {
-    console.log(req.body);
+    const { _id: courseId } = req.course;
+
     Course.findByIdAndUpdate(
-        { _id: req.course._id },
+        courseId,
         { $set: req.body },
         { new: true },
         (err, course) => {
-            if (err) {
+            if (err || !course) {
                 res.status(400).json({
                     error: "Not authorized to update information",
+                    msg: err.message,
                 });
             }
 
-            res.json(course);
+            if (req.body.hasOwnProperty("students")) {
+                req.body.students.map((student) => {
+                    User.findByIdAndUpdate(
+                        student,
+                        {
+                            $push: { course: courseId },
+                        },
+                        { new: true, upsert: true },
+
+                        (err, user) => {
+                            if (err || !user) {
+                                return res.status(400).json({
+                                    error: "Failed to populate courses for students",
+                                    msg: err,
+                                });
+                            }
+                        }
+                    );
+                });
+            }
+
+            return res.json(course);
         }
     );
 };
@@ -71,4 +95,27 @@ exports.removeCourse = (req, res) => {
         }
         res.json({ msg: "Course successfully deleted" });
     });
+};
+
+exports.getEnrolledUsers = (req, res) => {
+    Course.findById(req.course._id)
+        .populate("students")
+        .exec((err, course) => {
+            if (err) {
+                return res.status(400).json({
+                    error: "Failed to find students",
+                    msg: err.message,
+                });
+            }
+
+            course.students.map((student) => {
+                student.salt = undefined;
+                student.encrypted_password = undefined;
+                student.createdAt = undefined;
+                student.updatedAt = undefined;
+                student.role = undefined;
+            });
+
+            return res.json(course.students);
+        });
 };

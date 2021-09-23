@@ -8,6 +8,7 @@ const {
     getAllCourses,
     updateCourse,
     removeCourse,
+    getEnrolledUsers,
 } = require("../controllers/course");
 const {
     isSignedIn,
@@ -45,6 +46,22 @@ router.get(
     isAuthenticated,
     isInstructor,
     getCourse
+);
+
+/**
+ * @method GET
+ * @param courseId
+ * @param userId
+ * @route /api/course/enrolled/:courseId/:userId
+ * @description get details of the students enrolled in a course
+ * @access private
+ */
+router.get(
+    "/enrolled/:courseId/:userId",
+    isSignedIn,
+    isAuthenticated,
+    isInstructor,
+    getEnrolledUsers
 );
 
 /**
