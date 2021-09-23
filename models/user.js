@@ -31,7 +31,7 @@ const UserSchema = new Schema(
             type: Number,
             default: 0,
         },
-        course: [
+        courses: [
             {
                 type: Schema.Types.ObjectId,
                 ref: "Course",
