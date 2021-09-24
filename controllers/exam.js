@@ -33,6 +33,43 @@ exports.getAllExams = (req, res) => {
     });
 };
 
+exports.getAllQuestionsOfExam = (req, res) => {
+    Exam.findById(req.exam._id)
+        .populate("questions")
+        .exec((err, exam) => {
+            if (err) {
+                return res
+                    .status(400)
+                    .json({ error: "Failed to find exam", msg: err.message });
+            }
+
+            return res.json(exam.questions);
+        });
+};
+
+exports.getEnrolledUsersExam = (req, res) => {
+    Exam.findById(req.exam._id)
+        .populate("students")
+        .exec((err, exam) => {
+            if (err) {
+                return res.status(400).json({
+                    error: "Failed to find students",
+                    msg: err,
+                });
+            }
+
+            exam.students.map((student) => {
+                student.salt = undefined;
+                student.encrypted_password = undefined;
+                student.createdAt = undefined;
+                student.updatedAt = undefined;
+                student.role = undefined;
+            });
+
+            return res.json(exam.students);
+        });
+};
+
 exports.createExam = (req, res) => {
     const exam = new Exam(req.body);
 
@@ -50,7 +87,6 @@ exports.createExam = (req, res) => {
 
 exports.updateExam = (req, res) => {
     const { _id: examId } = req.exam;
-    console.log("updateExam");
 
     Exam.findByIdAndUpdate(
         examId,
@@ -92,53 +128,38 @@ exports.deleteExam = (req, res) => {
             return res.status(400).json({ error: "Failed to find exam" });
         }
 
-        exam.questions.map((quesId) => {
-            Question.findByIdAndRemove(quesId).exec((err, question) => {
-                if (err) {
-                    return res
-                        .status(400)
-                        .json({ error: "Failed to delete questions" });
-                }
-            });
-        });
+        if (exam.hasOwnProperty("questions")) {
+            if (exam.questions.length) {
+                exam.questions.map((quesId) => {
+                    Question.findByIdAndRemove(quesId).exec((err, question) => {
+                        if (err) {
+                            return res.status(400).json({
+                                error: "Failed to delete questions",
+                                msg: err,
+                                question,
+                            });
+                        }
+                    });
+                });
+            }
+        }
+
+        if (exam.hasOwnProperty("students")) {
+            if (exam.students.length) {
+                exam.students.map((studentId) => {
+                    User.findByIdAndRemove(studentId).exec((err, student) => {
+                        if (err) {
+                            return res.status(400).json({
+                                error: "Failed to delete questions",
+                                msg: err,
+                                student,
+                            });
+                        }
+                    });
+                });
+            }
+        }
 
         return res.json({ msg: "Exam successfully deleted" });
     });
-};
-
-exports.getAllQuestionsOfExam = (req, res) => {
-    Exam.findById(req.exam._id)
-        .populate("questions")
-        .exec((err, exam) => {
-            if (err) {
-                return res
-                    .status(400)
-                    .json({ error: "Failed to find exam", msg: err.message });
-            }
-
-            return res.json(exam.questions);
-        });
-};
-
-exports.getEnrolledUsersExam = (req, res) => {
-    Exam.findById(req.exam._id)
-        .populate("students")
-        .exec((err, exam) => {
-            if (err) {
-                return res.status(400).json({
-                    error: "Failed to find students",
-                    msg: err,
-                });
-            }
-
-            exam.students.map((student) => {
-                student.salt = undefined;
-                student.encrypted_password = undefined;
-                student.createdAt = undefined;
-                student.updatedAt = undefined;
-                student.role = undefined;
-            });
-
-            return res.json(exam.students);
-        });
 };
