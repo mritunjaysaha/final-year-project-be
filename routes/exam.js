@@ -24,12 +24,18 @@ router.param("examId", getExamById);
 
 /**
  * @method GET
- * @param userId
  * @param examId
- * @route /api/exam/:examId/:userId
+ * @param userId
+ * @route /api/exam/all-question/:examId/:userId
  * @description get all questions of a exam
- * @access private
+ * @access public
  */
+router.get(
+    "/all-questions/:examId/:userId",
+    isSignedIn,
+    isAuthenticated,
+    getAllQuestionsOfExam
+);
 
 /**
  * @method GET
@@ -113,21 +119,6 @@ router.delete(
     isAuthenticated,
     isInstructor,
     deleteExam
-);
-
-/**
- * @method GET
- * @param examId
- * @param userId
- * @route /api/exam/all-question/:examId/:userId
- * @description get all questions of a exam
- * @access public
- */
-router.get(
-    "/all-questions/:examId/:userId",
-    isSignedIn,
-    isAuthenticated,
-    getAllQuestionsOfExam
 );
 
 module.exports = router;
