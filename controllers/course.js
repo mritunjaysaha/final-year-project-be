@@ -65,7 +65,7 @@ exports.updateCourse = (req, res) => {
                     User.findByIdAndUpdate(
                         student,
                         {
-                            $push: { course: courseId },
+                            $push: { courses: courseId },
                         },
                         { new: true, upsert: true },
 
