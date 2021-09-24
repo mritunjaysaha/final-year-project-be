@@ -1,10 +1,14 @@
-### Auth
+# Auth Endpoints
 
-#### signin
+### signup
 
 `POST` /api/signin
 
-`Parameters`
+`Description`: create new user
+
+`Fields`: firstName, lastName, email, role
+
+`Type`: JSON
 
 ```
 firstName: String
@@ -13,30 +17,31 @@ email: String
 role: Number [default = 0]
 ```
 
-```json
-{
-    "_id": "31412451j1ju24u12hui1",
-    "firstName": "John",
-    "lastName": "Doe",
-    "email": "test@test.com",
-    "role": 0
-}
-```
-
 <strong>role</strong>
 
 -   0: students `[default value]`
 -   1: teachers
 -   10: administrator
 
-#### login
+### login
 
 `POST` /api/login
 
-#### logout
+`Description`: login the user
+
+`Fields`: username, password
+
+`Type`: JSON
+
+```
+username: String
+password: String
+```
+
+### logout
 
 `GET` /api/logout
 
-#### isSignedIn
+### isSignedIn
 
 `GET` /api/isSignedIn
