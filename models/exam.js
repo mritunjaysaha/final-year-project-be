@@ -29,14 +29,10 @@ const examSchema = new Schema(
                 ref: "User",
             },
         ],
-        time_limit: {
-            type: Number,
-            required: true,
-        },
-        total_marks: {
-            type: Number,
-            required: true,
-        },
+        start_date: { type: Date, required: true },
+        active_for: { type: Date, required: true },
+        time_limit: { type: Number, required: true },
+        total_marks: { type: Number, required: true },
     },
     { timestamps: true }
 );

@@ -2,7 +2,7 @@
 
 ### signup
 
-`POST` /api/signin
+`POST` /api/signup
 
 `Description`: create new user
 
