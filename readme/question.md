@@ -28,7 +28,7 @@ marks: Number
 
 ### Update question
 
-`PUT` /api/question/`:examId`/`:userId`
+`PUT` /api/question/`:questionId`/`:userId`
 
 `Description`: Update a question for the `examId`
 
