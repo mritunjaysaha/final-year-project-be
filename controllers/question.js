@@ -65,6 +65,7 @@ exports.createQuestion = (req, res) => {
 };
 
 exports.updateQuestion = (req, res) => {
+    console.log("updated");
     Question.findByIdAndUpdate(
         { _id: req.question._id },
         { $set: req.body },

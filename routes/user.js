@@ -27,6 +27,7 @@ router.get("/", getAllUsers);
 // !PRIVATE ROUTES
 /**
  * @route GET /api/user/:userId
+ * @param userId
  * @description get the user details
  * @access private
  */
@@ -34,6 +35,7 @@ router.get("/:userId", isSignedIn, isAuthenticated, getUser);
 
 /**
  * @route PUT /api/user/:userId
+ * @param userId
  * @description update user details
  * @access private
  */
@@ -41,6 +43,7 @@ router.put("/:userId", isSignedIn, isAuthenticated, updateUser);
 
 /**
  * @route DELETE /api/user/:userId
+ * @param userId
  * @description delete user
  * @access private
  */
@@ -48,6 +51,7 @@ router.delete("/:userId", isSignedIn, isAuthenticated, deleteUser);
 
 /**
  * @route POST /api/user/photo/:userId
+ * @param userId
  * @description add photo
  * @access private
  */
@@ -55,13 +59,15 @@ router.post("/photo/:userId", isSignedIn, isAuthenticated, updateUserPhoto);
 
 /**
  * @route GET /api/user/photo/:username
+ * @param username
  * @description read photo
  * @access public
  */
 router.get("/photo/:username", getPhoto);
 
 /**
- * @route PUT /api/user/photo
+ * @route DELETE /api/user/photo
+ * @param userId
  * @description delete photo
  * @access private
  */

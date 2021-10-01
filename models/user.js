@@ -6,17 +6,18 @@ const { Schema } = mongoose;
 
 const UserSchema = new Schema(
     {
-        firstName: {
+        first_name: {
             type: String,
             required: true,
             maxlength: 32,
             trim: true,
         },
-        lastName: {
+        last_name: {
             type: String,
             maxlength: 32,
             trim: true,
         },
+        username: { type: String },
         email: {
             type: String,
             required: true,
