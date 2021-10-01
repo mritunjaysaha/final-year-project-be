@@ -11,8 +11,8 @@
 `Type`: JSON
 
 ```
-firstName: String
-lastName: String
+first_name: String
+last_name: String
 email: String
 role: Number [default = 0]
 ```
@@ -29,7 +29,7 @@ role: Number [default = 0]
 
 `Description`: login the user
 
-`Fields`: username, password
+`Fields`: username/email, password
 
 `Type`: JSON
 
