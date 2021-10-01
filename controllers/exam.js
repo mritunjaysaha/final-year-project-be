@@ -79,9 +79,23 @@ exports.createExam = (req, res) => {
                 error: "Failed to create exam",
                 msg: err.message,
             });
-        }
+        } else {
+            User.findByIdAndUpdate(
+                req.profile._id,
+                { $push: { exams: exam._id } },
+                { new: true, upsert: true },
+                (err, user) => {
+                    if (err || !user) {
+                        return res.status(400).json({
+                            error: "Failed to update exams field for User schema",
+                            msg: err,
+                        });
+                    }
+                }
+            );
 
-        return res.json(exam);
+            return res.json(exam);
+        }
     });
 };
 
@@ -99,6 +113,9 @@ exports.updateExam = (req, res) => {
                 });
             }
 
+            /**
+             * ^ Pushing exams id of User schema for the role: 0(students)
+             */
             if (req.body.hasOwnProperty("students")) {
                 req.body.students.map((student) => {
                     User.findByIdAndUpdate(
