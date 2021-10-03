@@ -16,6 +16,20 @@
 
 `Parameter`: NONE
 
+### Get populated courses
+
+`GET` /api/user/populate-courses/`:userId`
+
+`Description`: Get details of the courses
+
+`Parameter`: userId
+
+`Returns`:
+
+-   Type: Array
+
+-   Contents: Course details
+
 ### Update user details
 
 `PUT` /api/user/`userId`

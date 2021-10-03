@@ -35,6 +35,20 @@ exports.getAllUsers = (req, res) => {
     });
 };
 
+exports.getPopulatedCourses = (req, res) => {
+    User.findById(req.profile._id)
+        .populate("courses")
+        .exec((err, user) => {
+            if (err) {
+                return res
+                    .status(400)
+                    .json({ error: "Failed to populate courses", msg: err });
+            }
+
+            return res.json(user.courses);
+        });
+};
+
 exports.updateUser = (req, res) => {
     User.findByIdAndUpdate(
         { _id: req.profile._id },

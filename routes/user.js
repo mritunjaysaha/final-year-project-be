@@ -5,6 +5,7 @@ const {
     getUser,
     getUserById,
     getAllUsers,
+    getPopulatedCourses,
     updateUser,
     deleteUser,
     updateUserPhoto,
@@ -12,7 +13,11 @@ const {
     deletePhoto,
 } = require("../controllers/user");
 
-const { isAuthenticated, isSignedIn } = require("../controllers/auth");
+const {
+    isAuthenticated,
+    isSignedIn,
+    isInstructor,
+} = require("../controllers/auth");
 
 router.param("userId", getUserById);
 
@@ -32,6 +37,21 @@ router.get("/", getAllUsers);
  * @access private
  */
 router.get("/:userId", isSignedIn, isAuthenticated, getUser);
+
+/**
+ * @method GET
+ * @param userId
+ * @route /api/user/populate-courses/:userId
+ * @description Populate the courses with their details
+ * @access private
+ */
+router.get(
+    "/populate-courses/:userId",
+    isSignedIn,
+    isAuthenticated,
+    isInstructor,
+    getPopulatedCourses
+);
 
 /**
  * @route PUT /api/user/:userId

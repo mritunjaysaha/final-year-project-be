@@ -22,7 +22,21 @@ exports.createCourse = (req, res) => {
                 .status(400)
                 .json({ error: "failed to create course", msg: err.message });
         }
-        return res.json(course);
+
+        User.findByIdAndUpdate(
+            req.profile._id,
+            { $push: { courses: course._id } },
+            { new: true, upsert: true },
+            (err, user) => {
+                if (err || !user) {
+                    return res
+                        .status(400)
+                        .json({ error: "Failed to create course", msg: err });
+                }
+
+                return res.json(user.courses);
+            }
+        );
     });
 };
 

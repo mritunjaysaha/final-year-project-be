@@ -1,10 +1,10 @@
 # Course Endpoints
 
-### Get Course
+### Get all courses
 
 `GET` /api/course/all-courses/`:userId`
 
-`Description`: get all the courses for the `userId`
+`Description`: get all the courses for the `userId`. It can be called by users with the `role: 10`[Admin]
 
 `Params`: userId
 
@@ -33,6 +33,8 @@
 `Params`: userId
 
 `Fields`: course_name, course_coordinator, [students]
+
+`Returns`: `ids` of courses
 
 ```
 Note: [] represents optional fields

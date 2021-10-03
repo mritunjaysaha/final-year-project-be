@@ -57,10 +57,10 @@ exports.createQuestion = (req, res) => {
                         msg: err.message,
                     });
                 }
-
-                return res.json(question);
             }
         );
+
+        return res.json(question);
     });
 };
 
