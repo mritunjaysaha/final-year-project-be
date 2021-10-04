@@ -15,7 +15,7 @@ exports.getCourseById = (req, res, next, id) => {
 
 exports.createCourse = (req, res) => {
     const course = new Course(req.body);
-
+    console.log("createCourse");
     course.save((err, course) => {
         if (err) {
             return res
@@ -34,7 +34,7 @@ exports.createCourse = (req, res) => {
                         .json({ error: "Failed to create course", msg: err });
                 }
 
-                return res.json(user.courses);
+                return res.json(course);
             }
         );
     });

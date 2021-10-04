@@ -21,13 +21,19 @@ const {
 
 router.param("userId", getUserById);
 
-// !PUBLIC ROUTES
 /**
- * @route GET /api/user/
+ * @route GET /api/user
+ * @param userId
  * @description get all users
- * @access public
+ * @access private
  */
-router.get("/", getAllUsers);
+router.get(
+    "/all/:userId",
+    isSignedIn,
+    isAuthenticated,
+    isInstructor,
+    getAllUsers
+);
 
 // !PRIVATE ROUTES
 /**
@@ -46,7 +52,7 @@ router.get("/:userId", isSignedIn, isAuthenticated, getUser);
  * @access private
  */
 router.get(
-    "/populate-courses/:userId",
+    "/populated-courses/:userId",
     isSignedIn,
     isAuthenticated,
     isInstructor,
