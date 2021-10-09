@@ -34,6 +34,7 @@ exports.getQuestion = (req, res) => {
 };
 
 exports.createQuestion = (req, res) => {
+    console.log("createQuestion");
     const newQuestion = new Question(req.body);
 
     newQuestion.save((err, question) => {
