@@ -6,7 +6,7 @@
 
 `Description`: Get all the questions for the `examId`
 
-`Parameters`: examId, questionId
+`Parameters`: examId, userId
 
 ### Get all the exams created by a user
 
