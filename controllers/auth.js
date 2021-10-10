@@ -30,15 +30,17 @@ exports.signUp = (req, res) => {
 exports.signIn = (req, res) => {
     const errors = validationResult(req);
 
+    console.log("signIn", req.body);
+
     if (!errors.isEmpty()) {
         return res.status(400).json({
             error: errors.array()[0].msg,
         });
     }
 
-    const { username, password } = req.body;
+    const { email, password } = req.body;
 
-    User.findOne({ username }, (err, user) => {
+    User.findOne({ email }, (err, user) => {
         if (err || !user) {
             return res.status(400).json({
                 error: "USER email doesn't exist",
