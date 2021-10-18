@@ -55,7 +55,6 @@ router.get(
     "/populated-courses/:userId",
     isSignedIn,
     isAuthenticated,
-    isInstructor,
     getPopulatedCourses
 );
 
