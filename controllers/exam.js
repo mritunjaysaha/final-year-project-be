@@ -16,6 +16,26 @@ exports.getExamById = (req, res, next, id) => {
     });
 };
 
+exports.getPopulatedExamById = (req, res) => {
+    const { _id: examId } = req.exam;
+
+    console.log(
+        "%cGetPopulatedExamById",
+        "background-color: red; color: white"
+    );
+    Exam.findById(examId)
+        .populate(["courses", "course_coordinator"])
+        .exec((err, exam) => {
+            if (err || !exam) {
+                return res.status(400).json({
+                    error: "No exam found",
+                });
+            }
+            console.log(exam);
+            return res.json(exam);
+        });
+};
+
 exports.getExam = (req, res) => {
     return res.json(req.exam);
 };
@@ -111,27 +131,27 @@ exports.updateExam = (req, res) => {
                 return res.status(400).json({
                     error: "Not authorized to update information",
                 });
-            }
-
-            /**
-             * ^ Pushing exams id of User schema for the role: 0(students)
-             */
-            if (req.body.hasOwnProperty("students")) {
-                req.body.students.map((student) => {
-                    User.findByIdAndUpdate(
-                        student,
-                        { $push: { exams: examId } },
-                        { new: true, upsert: true },
-                        (err, user) => {
-                            if (err || !user) {
-                                return res.status(400).json({
-                                    error: "Failed to populate exams",
-                                    msg: err,
-                                });
+            } else {
+                /**
+                 * ^ Pushing exams id of User schema for the role: 0(students)
+                 */
+                if (req.body.hasOwnProperty("students")) {
+                    req.body.students.map((student) => {
+                        User.findByIdAndUpdate(
+                            student,
+                            { $push: { exams: examId } },
+                            { new: true, upsert: true },
+                            (err, user) => {
+                                if (err || !user) {
+                                    return res.status(400).json({
+                                        error: "Failed to populate exams",
+                                        msg: err,
+                                    });
+                                }
                             }
-                        }
-                    );
-                });
+                        );
+                    });
+                }
             }
 
             return res.json(exam);

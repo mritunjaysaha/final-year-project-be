@@ -5,6 +5,7 @@ const router = express.Router();
 const {
     getExamById,
     getExam,
+    getPopulatedExamById,
     getAllExams,
     createExam,
     updateExam,
@@ -55,12 +56,21 @@ router.get("/:userId", isSignedIn, isAuthenticated, isInstructor, getAllExams);
  * @description get exam by id
  * @access private
  */
+router.get("/:examId/:userId", isSignedIn, isAuthenticated, getExam);
+
+/**
+ * @method GET
+ * @param examId
+ * @param userId
+ * @route /api/exam/populate/:examId/:userId
+ * @description get populated exam by id
+ * @access private
+ */
 router.get(
-    "/:examId/:userId",
+    "/populate/:examId/:userId",
     isSignedIn,
     isAuthenticated,
-    isInstructor,
-    getExam
+    getPopulatedExamById
 );
 
 /**

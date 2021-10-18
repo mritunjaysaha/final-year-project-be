@@ -15,12 +15,15 @@ exports.getCourseById = (req, res, next, id) => {
 
 exports.createCourse = (req, res) => {
     const course = new Course(req.body);
+    console.log("createCourse", req.body);
+
     course.save((err, course) => {
         if (err) {
             return res
                 .status(400)
                 .json({ error: "failed to create course", msg: err.message });
         }
+        console.log(course);
 
         User.findByIdAndUpdate(
             req.profile._id,
@@ -31,9 +34,31 @@ exports.createCourse = (req, res) => {
                     return res
                         .status(400)
                         .json({ error: "Failed to create course", msg: err });
-                }
+                } else {
+                    if (req.body.hasOwnProperty("students")) {
+                        const { students } = course;
 
-                return res.json(course);
+                        students.map((studentId) => {
+                            User.findByIdAndUpdate(
+                                studentId,
+                                { $push: { courses: course._id } },
+                                { new: true, upsert: true },
+                                (err, user) => {
+                                    if (err) {
+                                        return res
+                                            .status(400)
+                                            .json({
+                                                error: "Failed to populate exams",
+                                                msg: err,
+                                            });
+                                    }
+                                }
+                            );
+                        });
+                    }
+
+                    return res.json(course);
+                }
             }
         );
     });
