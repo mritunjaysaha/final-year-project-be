@@ -62,21 +62,6 @@ router.get("/:examId/:userId", isSignedIn, isAuthenticated, getExam);
  * @method GET
  * @param examId
  * @param userId
- * @route /api/exam/populate/:examId/:userId
- * @description get populated exam by id
- * @access private
- */
-router.get(
-    "/populate/:examId/:userId",
-    isSignedIn,
-    isAuthenticated,
-    getPopulatedExamById
-);
-
-/**
- * @method GET
- * @param examId
- * @param userId
  * @route /api/exam/enrolled/:examId/:userId
  * @description get list of enrolled students
  * @access private
@@ -87,6 +72,21 @@ router.get(
     isAuthenticated,
     isInstructor,
     getEnrolledUsersExam
+);
+
+/**
+ * @method GET
+ * @param examId
+ * @param userId
+ * @route /api/exam/populate/:examId/:userId
+ * @description get populated exam by id
+ * @access private
+ */
+router.get(
+    "/populate/:examId/:userId",
+    isSignedIn,
+    isAuthenticated,
+    getPopulatedExamById
 );
 
 /**

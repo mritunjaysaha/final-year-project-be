@@ -32,6 +32,14 @@
 
 `Parameters`: examId, userId
 
+### Get Populated Exams By Id
+
+`GET` /api/exam/populate/`:examId`/`:userId`
+
+`Description`: Populates the details for the `course` and `course_coordinator` fields
+
+`Parameters`: examId, userId
+
 ### Create exam
 
 `POST` /api/exam/`userId`
