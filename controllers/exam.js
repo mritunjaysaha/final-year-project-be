@@ -3,17 +3,19 @@ const { Question } = require("../models/question");
 const { User } = require("../models/user");
 
 exports.getExamById = (req, res, next, id) => {
-    Exam.findById(id).exec((err, exam) => {
-        if (err || !exam) {
-            return res.status(400).json({
-                error: "No exam found",
-            });
-        }
+    Exam.findById(id)
+        .populate("questions")
+        .exec((err, exam) => {
+            if (err || !exam) {
+                return res.status(400).json({
+                    error: "No exam found",
+                });
+            }
 
-        req.exam = exam;
+            req.exam = exam;
 
-        next();
-    });
+            next();
+        });
 };
 
 exports.getPopulatedExamById = (req, res) => {
