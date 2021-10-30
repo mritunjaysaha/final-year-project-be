@@ -5,6 +5,12 @@ const router = express.Router();
 const { getUserById } = require("../controllers/user");
 const { getExamById } = require("../controllers/exam");
 const {
+    getAnswerById,
+    getAnswer,
+    createAnswer,
+    updateAnswer,
+} = require("../controllers/answer");
+const {
     isInstructor,
     isSignedIn,
     isAuthenticated,
@@ -12,7 +18,7 @@ const {
 
 router.param("userId", getUserById);
 router.param("examId", getExamById);
-
+router.param("answerId", getAnswerById);
 /**
  * @method GET
  * @param answerId
@@ -21,6 +27,13 @@ router.param("examId", getExamById);
  * @description get the answer by answerId
  * @access private
  */
+router.get(
+    "/:answerId/:userId",
+    isSignedIn,
+    isAuthenticated,
+    isInstructor,
+    getAnswer
+);
 
 /**
  * @method POST
@@ -30,12 +43,16 @@ router.param("examId", getExamById);
  * @description push the answer id into the exam schema
  * @access private
  */
+router.post("/:examId/:userId", isSignedIn, isAuthenticated, createAnswer);
 
 /**
  * @method PUT
  * @param examId
  * @param userId
- * @route /api/answer/:answerId/:userId+
+ * @route /api/answer/:answerId/:userId
  * @description update the exam details
  * @access private
  */
+router.put("/:answerId/:userId", isSignedIn, isAuthenticated, updateAnswer);
+
+module.exports = router;
