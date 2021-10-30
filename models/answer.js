@@ -8,6 +8,11 @@ const answerSchema = new Schema(
             required: true,
         },
         data: { type: "string", required: true },
+        submitted_by: {
+            type: Schema.Types.ObjectId,
+            ref: "User",
+            required: true,
+        },
     },
     { timestamps: true }
 );
