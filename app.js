@@ -10,7 +10,7 @@ const userRoutes = require("./routes/user");
 const courseRoutes = require("./routes/course");
 const examRoutes = require("./routes/exam");
 const questionRoutes = require("./routes/question");
-
+const answerRoutes = require("./routes/answer");
 // initialize app
 const app = express();
 
@@ -29,5 +29,6 @@ app.use("/api/user", userRoutes);
 app.use("/api/course", courseRoutes);
 app.use("/api/exam", examRoutes);
 app.use("/api/question", questionRoutes);
+app.use("/api/answer", answerRoutes);
 
 module.exports = { app };
