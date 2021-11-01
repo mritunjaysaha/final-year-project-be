@@ -7,7 +7,7 @@ const answerSchema = new Schema(
             type: Schema.Types.ObjectId,
             required: true,
         },
-        data: { type: "string", required: true },
+        answer: { type: "string", required: true },
         submitted_by: {
             type: Schema.Types.ObjectId,
             ref: "User",
