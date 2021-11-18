@@ -26,7 +26,7 @@ exports.getPopulatedExamById = (req, res) => {
         "background-color: red; color: white"
     );
     Exam.findById(examId)
-        .populate(["courses", "course_coordinator"])
+        .populate(["course", "course_coordinator"])
         .exec((err, exam) => {
             if (err || !exam) {
                 return res.status(400).json({
