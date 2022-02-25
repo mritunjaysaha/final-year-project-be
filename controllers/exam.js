@@ -102,6 +102,22 @@ exports.getAllAnswers = (req, res) => {
                 });
             }
 
+            exam.answers.forEach((ans) => {
+                ans.question.createdAt = undefined;
+                ans.question.updatedAt = undefined;
+
+                ans.submitted_by.encrypted_password = undefined;
+                ans.submitted_by.salt = undefined;
+                ans.submitted_by.createdAt = undefined;
+                ans.submitted_by.updatedAt = undefined;
+                ans.submitted_by.role = undefined;
+                ans.submitted_by.courses = undefined;
+                ans.submitted_by.exams = undefined;
+
+                ans.createdAt = undefined;
+                ans.updatedAt = undefined;
+            });
+
             return res.json(exam.answers);
         });
 };
