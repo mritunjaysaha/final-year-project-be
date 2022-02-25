@@ -1,6 +1,7 @@
 const { Exam } = require("../models/exam");
 const { Question } = require("../models/question");
 const { User } = require("../models/user");
+const { Answer } = require("../models/answer");
 
 exports.getExamById = (req, res, next, id) => {
     Exam.findById(id)
@@ -21,19 +22,14 @@ exports.getExamById = (req, res, next, id) => {
 exports.getPopulatedExamById = (req, res) => {
     const { _id: examId } = req.exam;
 
-    console.log(
-        "%cGetPopulatedExamById",
-        "background-color: red; color: white"
-    );
     Exam.findById(examId)
-        .populate(["course", "course_coordinator", "questions"])
+        .populate(["course", "course_coordinator", "questions", "submitted_by"])
         .exec((err, exam) => {
             if (err || !exam) {
                 return res.status(400).json({
                     error: "No exam found",
                 });
             }
-            console.log(exam);
             return res.json(exam);
         });
 };
@@ -89,6 +85,24 @@ exports.getEnrolledUsersExam = (req, res) => {
             });
 
             return res.json(exam.students);
+        });
+};
+
+exports.getAllAnswers = (req, res) => {
+    Exam.findById(req.exam._id)
+        .populate({
+            path: "answers",
+            populate: [{ path: "question" }, { path: "submitted_by" }],
+        })
+        .exec((err, exam) => {
+            if (err) {
+                return res.status(400).json({
+                    error: "Failed to find answers",
+                    msg: err,
+                });
+            }
+
+            return res.json(exam.answers);
         });
 };
 

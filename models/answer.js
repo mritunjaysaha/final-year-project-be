@@ -5,6 +5,7 @@ const answerSchema = new Schema(
     {
         question: {
             type: Schema.Types.ObjectId,
+            ref: "Question",
             required: true,
         },
         data: { type: "string", required: true },

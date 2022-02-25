@@ -19,6 +19,7 @@ const {
 router.param("userId", getUserById);
 router.param("examId", getExamById);
 router.param("answerId", getAnswerById);
+
 /**
  * @method GET
  * @param answerId

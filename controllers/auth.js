@@ -19,7 +19,7 @@ exports.signUp = (req, res) => {
                 error: err.message,
             });
         }
-        res.json({
+        return res.json({
             username: user.username,
             email: user.email,
             id: user._id,
@@ -86,6 +86,8 @@ exports.isAuthenticated = (req, res, next) => {
     let checker =
         req.profile && req.auth && req.profile._id.toString() === req.auth._id;
 
+    console.log("[isAuthenticated]", { checker });
+
     if (!checker) {
         return res
             .status(403)
@@ -96,6 +98,7 @@ exports.isAuthenticated = (req, res, next) => {
 };
 
 exports.isInstructor = (req, res, next) => {
+    console.log("[isInstructor]");
     if (req.profile.role === 0) {
         return res.status(403).json({
             error: `[ACCESS DENIED] You're not an INSTRUCTOR`,

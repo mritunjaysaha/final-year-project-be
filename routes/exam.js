@@ -12,6 +12,7 @@ const {
     deleteExam,
     getAllQuestionsOfExam,
     getEnrolledUsersExam,
+    getAllAnswers,
 } = require("../controllers/exam");
 const { getUserById } = require("../controllers/user");
 const {
@@ -87,6 +88,22 @@ router.get(
     isSignedIn,
     isAuthenticated,
     getPopulatedExamById
+);
+
+/**
+ * @method GET
+ * @param examId
+ * @param userId
+ * @route /api/exam/all-answers/:examId/:userId
+ * @description get all the answers for the required exam
+ * @access private
+ */
+router.get(
+    "/all-answers/:examId/:userId",
+    isSignedIn,
+    isAuthenticated,
+    isInstructor,
+    getAllAnswers
 );
 
 /**

@@ -24,7 +24,7 @@ app.use(express.json({ extend: false }));
 
 // my routes
 app.get("/", (req, res) => res.send("Server is active"));
-app.use("/api", authRoutes);
+app.use("/api/auth", authRoutes);
 app.use("/api/user", userRoutes);
 app.use("/api/course", courseRoutes);
 app.use("/api/exam", examRoutes);
