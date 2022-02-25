@@ -23,7 +23,7 @@ exports.getPopulatedExamById = (req, res) => {
     const { _id: examId } = req.exam;
 
     Exam.findById(examId)
-        .populate(["course", "course_coordinator", "questions", "submitted_by"])
+        .populate(["course", "course_coordinator", "questions"])
         .exec((err, exam) => {
             if (err || !exam) {
                 return res.status(400).json({
