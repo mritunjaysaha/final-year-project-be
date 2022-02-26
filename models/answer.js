@@ -16,7 +16,6 @@ const answerSchema = new Schema(
         },
         marks: {
             type: String,
-            default: null,
         },
     },
     { timestamps: true }
