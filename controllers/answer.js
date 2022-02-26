@@ -61,3 +61,22 @@ exports.updateAnswer = (req, res) => {
         }
     );
 };
+
+exports.updateMarks = (req, res) => {
+    console.log(req.body);
+
+    Answer.findByIdAndUpdate(
+        req.params.answerId,
+        { $set: req.body },
+        { upsert: true, new: true },
+        (err, answer) => {
+            if (err) {
+                return res
+                    .status(400)
+                    .json({ err: "Failed to set marks", msg: err.msg });
+            }
+            console.log(answer);
+            return res.json(answer);
+        }
+    );
+};

@@ -9,6 +9,7 @@ const {
     getAnswer,
     createAnswer,
     updateAnswer,
+    updateMarks,
 } = require("../controllers/answer");
 const {
     isInstructor,
@@ -55,5 +56,21 @@ router.post("/:examId/:userId", isSignedIn, isAuthenticated, createAnswer);
  * @access private
  */
 router.put("/:answerId/:userId", isSignedIn, isAuthenticated, updateAnswer);
+
+/**
+ * @method PUT
+ * @param answerId
+ * @param userId
+ * @route /api/answer/marks/:answerId/:userId
+ * @description set marks
+ * @access private
+ */
+router.put(
+    "/marks/:answerId/:userId",
+    isSignedIn,
+    isAuthenticated,
+    isInstructor,
+    updateMarks
+);
 
 module.exports = router;

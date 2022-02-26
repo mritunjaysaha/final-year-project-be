@@ -14,6 +14,10 @@ const answerSchema = new Schema(
             ref: "User",
             required: true,
         },
+        marks: {
+            type: String,
+            default: null,
+        },
     },
     { timestamps: true }
 );
