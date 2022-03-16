@@ -23,6 +23,12 @@ const examSchema = new Schema(
                 ref: "Question",
             },
         ],
+        mcqQuestions: [
+            {
+                type: Schema.Types.ObjectId,
+                ref: "McqQuestion",
+            },
+        ],
         students: [
             {
                 type: Schema.Types.ObjectId,
