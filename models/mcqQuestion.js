@@ -23,6 +23,6 @@ const mcqQuestionSchema = new Schema({
     },
 });
 
-const McqQuestions = mongoose.model("McqQuestion", mcqQuestionSchema);
+const McqQuestion = mongoose.model("McqQuestion", mcqQuestionSchema);
 
-module.exports = { McqQuestions };
+module.exports = { McqQuestion };
