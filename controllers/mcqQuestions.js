@@ -1,7 +1,7 @@
 const { McqQuestion } = require("../models/mcqQuestion");
 const { Exam } = require("../models/exam");
 
-exports.getQuestionById = (req, res, next, id) => {
+exports.getMcqQuestionById = (req, res, next, id) => {
     McqQuestion.findById(id).exec((err, question) => {
         if (err || !mcqQuestion) {
             return res.status(400).json({
@@ -27,6 +27,10 @@ exports.getAllMcqQuestions = (req, res) => {
 
         return res.json(mcqQuestion);
     });
+};
+
+exports.getMcqQuestionById = (req, res) => {
+    return res.json(req.mcqQuestion);
 };
 
 exports.createMcqQuestion = (req, res) => {
@@ -79,7 +83,7 @@ exports.updateMcqQuestion = (req, res) => {
     );
 };
 
-exports.deleteQuestion = (req, res) => {
+exports.removeMcqQuestion = (req, res) => {
     const { _id: mcqQuesId } = req.mcqQuestion;
     const { _id: examId } = req.exam;
 

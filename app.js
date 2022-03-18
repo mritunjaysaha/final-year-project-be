@@ -11,6 +11,8 @@ const courseRoutes = require("./routes/course");
 const examRoutes = require("./routes/exam");
 const questionRoutes = require("./routes/question");
 const answerRoutes = require("./routes/answer");
+const mcqQuestionRoutes = require("./routes/mcqQuestions");
+
 // initialize app
 const app = express();
 
@@ -30,5 +32,6 @@ app.use("/api/course", courseRoutes);
 app.use("/api/exam", examRoutes);
 app.use("/api/question", questionRoutes);
 app.use("/api/answer", answerRoutes);
+app.use("/api/mcqQuestion", mcqQuestionRoutes);
 
 module.exports = { app };
