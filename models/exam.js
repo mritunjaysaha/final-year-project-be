@@ -46,6 +46,7 @@ const examSchema = new Schema(
         time_limit: { type: Number, required: true },
         total_marks: { type: Number, required: true },
         total_questions: { type: Number, required: true },
+        attempted_date: { type: String, default: "" },
     },
     { timestamps: true }
 );

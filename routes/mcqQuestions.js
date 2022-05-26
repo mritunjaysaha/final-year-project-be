@@ -35,7 +35,7 @@ router.get(
     isSignedIn,
     isAuthenticated,
     isInstructor,
-    get
+    getMcqQuestionById
 );
 
 /**
